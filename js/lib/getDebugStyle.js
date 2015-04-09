@@ -1,3 +1,5 @@
+'use strict';
+
 var Chance = require('chance');
 var hash = require('string-hash');
 

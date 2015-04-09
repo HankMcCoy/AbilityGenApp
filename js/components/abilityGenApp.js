@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react-native');
+var getPointsLeft = require('../lib/getPointsLeft');
 var {
   AppRegistry,
   ScrollView,
@@ -9,8 +10,7 @@ var {
   Text,
   View,
 } = React;
-var IntegerInput = require('./integerInput');
-var getPointsLeft = require('../lib/getPointsLeft');
+var AbilityRow = require('./abilityRow');
 
 var AbilityGenApp = React.createClass({
   getInitialState: function () {
@@ -29,8 +29,15 @@ var AbilityGenApp = React.createClass({
     StatusBarIOS.setStyle(StatusBarIOS.Style.lightContent);
   },
   render: function() {
-    var scoreInputs = Object.keys(this.state.baseScores)
-      .map(this.renderScore);
+    var abilityRows = Object.keys(this.state.baseScores)
+      .map((key) => {
+        return (
+          <AbilityRow
+            ability={key}
+            score={this.state.baseScores[key]}
+            updateBaseScore={this.updateBaseScore} />
+        );
+      });
 
     return (
       <View style={styles.appContainer}>
@@ -42,8 +49,8 @@ var AbilityGenApp = React.createClass({
         </View>
         <ScrollView
           contentContainerStyle={styles.contentContainer}>
-          <View style={styles.scoresContainer}>
-            {scoreInputs}
+          <View>
+            {abilityRows}
           </View>
           <Text style={[styles.pointsLeftText, { fontSize: 32 }]}>
             {getPointsLeft(this.state.baseScores)}
@@ -52,23 +59,6 @@ var AbilityGenApp = React.createClass({
             points left
           </Text>
         </ScrollView>
-      </View>
-    );
-  },
-  renderScore: function (ability) {
-    var score = this.state.baseScores[ability];
-    var modifier = Math.floor(0.5*(score - 10));
-    return (
-      <View style={styles.scoreContainer}>
-        <Text style={styles.abilityText}>{ability.toUpperCase()}</Text>
-        <IntegerInput
-          value={this.state.baseScores[ability]}
-          min={8}
-          max={18}
-          onChange={(score) => this.updateBaseScore(ability, score)} />
-        <Text style={styles.modText}>
-          {modifier >= 0 ? '+' : ''}{modifier}
-        </Text>
       </View>
     );
   },
@@ -88,6 +78,7 @@ var AbilityGenApp = React.createClass({
     });
   }
 });
+
 
 var styles = StyleSheet.create({
   appContainer: {
@@ -119,21 +110,6 @@ var styles = StyleSheet.create({
     fontWeight: '800',
     textAlign: 'center',
   },
-  scoreContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 5,
-    marginBottom: 5,
-  },
-  abilityText: {
-    textAlign: 'center',
-    width: 55,
-  },
-  modText: {
-    textAlign: 'center',
-    paddingLeft: 20,
-  }
 });
 
 module.exports = AbilityGenApp;

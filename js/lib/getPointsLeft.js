@@ -1,3 +1,5 @@
+'use strict';
+
 var scoreCosts = {
   '8': 0,
   '9': 1,
@@ -13,7 +15,7 @@ var scoreCosts = {
 };
 
 function getPointsLeft(abilityScores) {
-  var cost =  Object.keys(abilityScores).reduce(function (costs, key) {
+  var cost =  Object.keys(abilityScores).reduce((costs, key) => {
     return costs + scoreCosts[abilityScores[key]];
   }, 0);
 
