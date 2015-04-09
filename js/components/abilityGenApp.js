@@ -1,6 +1,8 @@
 'use strict';
 
 var React = require('react-native');
+var AbilityTableHeader = require('./abilityTableHeader');
+var AbilityRow = require('./abilityRow');
 var getPointsLeft = require('../lib/getPointsLeft');
 var {
   AppRegistry,
@@ -10,7 +12,6 @@ var {
   Text,
   View,
 } = React;
-var AbilityRow = require('./abilityRow');
 
 var AbilityGenApp = React.createClass({
   getInitialState: function () {
@@ -49,17 +50,18 @@ var AbilityGenApp = React.createClass({
         </View>
         <ScrollView
           contentContainerStyle={styles.contentContainer}>
-          <View>
-            {abilityRows}
-          </View>
+          <AbilityTableHeader />
+          {abilityRows}
+        </ScrollView>
+        <View style={styles.pointsLeftContainer}>
           <Text style={[styles.pointsLeftText, { fontSize: 32 }]}>
             {getPointsLeft(this.state.baseScores)}
           </Text>
           <Text style={styles.pointsLeftText}>
             points left
           </Text>
-        </ScrollView>
-      </View>
+        </View>
+       </View>
     );
   },
   updateBaseScore: function (ability, score) {
@@ -92,6 +94,7 @@ var styles = StyleSheet.create({
   contentContainer: {
     alignItems: 'stretch',
     flexDirection: 'column',
+    paddingBottom: 80,
   },
   headingContainer: {
     padding: 10,
@@ -103,6 +106,13 @@ var styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: '800',
     color: '#fff',
+  },
+  pointsLeftContainer: {
+    position: 'absolute',
+    right: 0,
+    bottom: 0,
+    width: 120,
+    paddingBottom: 10,
   },
   pointsLeftText: {
     fontFamily: 'Futura',

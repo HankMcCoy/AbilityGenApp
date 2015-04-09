@@ -57,26 +57,26 @@ var IntegerInput = React.createClass({
 
 var styles = StyleSheet.create({
   container: {
+    flex: 1,
     flexDirection: 'row',
     borderColor: '#ccc',
     borderWidth: 2,
     borderRadius: 4,
     alignItems: 'stretch',
-    height: 60,
     backgroundColor: '#fff',
   },
   btnContainer: {
     flex: 1,
     flexDirection: 'column',
     flexWrap: 'nowrap',
+    alignItems: 'stretch',
   },
   valueTxt: {
     flex: 2,
     alignSelf: 'center',
     textAlign: 'center',
     padding: 10,
-    width: 50,
-    fontSize: 16,
+    fontSize: 20,
   },
   incrementButton: {
     borderColor: '#aaa',
@@ -84,11 +84,9 @@ var styles = StyleSheet.create({
   },
   button: {
     flex: 1,
-    flexDirection: 'row',
     backgroundColor: '#ccc',
     alignItems: 'center',
     justifyContent: 'center',
-    width: 30,
   },
   buttonText: {
     fontSize: 20,

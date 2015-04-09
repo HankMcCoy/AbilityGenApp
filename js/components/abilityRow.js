@@ -2,6 +2,8 @@
 
 var React = require('react-native');
 var IntegerInput = require('./integerInput');
+var tableStyles = require('./styles/abilityTableStyles');
+var getDebugStyle = require('../lib/getDebugStyle');
 var {
   StyleSheet,
   Text,
@@ -17,13 +19,17 @@ var AbilityRow = React.createClass({
 
     return (
       <View style={styles.row}>
-        <Text style={styles.abilityText}>{ability.toUpperCase()}</Text>
-        <IntegerInput
-          value={score}
-          min={8}
-          max={18}
-          onChange={(score) => updateBaseScore(ability, score)} />
-        <Text style={styles.modText}>
+        <Text style={getDebugStyle([tableStyles.abilityCell, styles.abilityText])}>
+          {ability.toUpperCase()}
+        </Text>
+        <View style={getDebugStyle([tableStyles.scoreCell, styles.scoreContainer])}>
+          <IntegerInput
+            value={score}
+            min={8}
+            max={18}
+            onChange={(score) => updateBaseScore(ability, score)} />
+        </View>
+        <Text style={getDebugStyle([tableStyles.modCell, styles.modText])}>
           {modifier >= 0 ? '+' : ''}{modifier}
         </Text>
       </View>
@@ -41,12 +47,12 @@ var styles = StyleSheet.create({
   },
   abilityText: {
     textAlign: 'center',
-    width: 55,
+  },
+  scoreContainer: {
+    height: 60,
   },
   modText: {
     textAlign: 'center',
-    paddingLeft: 20,
-    width: 40,
   },
 });
 
