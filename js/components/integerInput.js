@@ -63,6 +63,7 @@ var styles = StyleSheet.create({
     borderRadius: 4,
     alignItems: 'stretch',
     height: 60,
+    backgroundColor: '#fff',
   },
   btnContainer: {
     flex: 1,
