@@ -1,11 +1,11 @@
 'use strict';
 
 var React = require('react-native');
+var StyledText = require('./styledText');
 var tableStyles = require('./styles/abilityTableStyles');
 var getDebugStyle = require('../lib/getDebugStyle');
 var {
   StyleSheet,
-  Text,
   View,
 } = React;
 
@@ -14,12 +14,12 @@ var AbilityTableHeader = React.createClass({
     return (
       <View style={styles.container}>
         <View style={getDebugStyle([tableStyles.abilityCell, styles.header])} />
-        <Text style={getDebugStyle([tableStyles.scoreCell, styles.header])}>
+        <StyledText style={getDebugStyle([tableStyles.scoreCell, styles.header])}>
           SCORE
-        </Text>
-        <Text style={getDebugStyle([tableStyles.modCell, styles.header])}>
+        </StyledText>
+        <StyledText style={getDebugStyle([tableStyles.modCell, styles.header])}>
           MOD
-        </Text>
+        </StyledText>
       </View>
     );
   }
@@ -31,7 +31,6 @@ var styles = StyleSheet.create({
   },
   header: {
     fontWeight: '800',
-    fontFamily: 'Futura',
     textAlign: 'center',
   },
 });
