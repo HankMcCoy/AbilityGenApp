@@ -8,6 +8,7 @@
   "dependencies": {
     "chance": "~0.7.3",
     "react-native": "~0.3.4",
+    "react-native-debug-stylesheet": "0.0.2",
     "string-hash": "~1.1.0"
   }
 }

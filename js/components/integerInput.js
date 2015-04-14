@@ -1,7 +1,6 @@
 'use strict';
 
 var React = require('react-native');
-var getDebugStyle = require('../lib/getDebugStyle');
 var {
   StyleSheet,
   Text,
@@ -21,10 +20,10 @@ var IntegerInput = React.createClass({
   render: function() {
     return (
       <View style={styles.container}>
-        <Text style={getDebugStyle(styles.valueTxt)}>
+        <Text style={styles.valueTxt}>
           {this.props.value}
         </Text>
-        <View style={getDebugStyle(styles.btnContainer)}>
+        <View style={styles.btnContainer}>
           <TouchableHighlight
             underlayColor="#aaa"
             onPress={this.handleIncrement}

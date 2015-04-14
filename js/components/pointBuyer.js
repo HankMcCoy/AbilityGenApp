@@ -1,19 +1,22 @@
 'use strict';
 
 var React = require('react-native');
+var StyleSheet = require('react-native-debug-stylesheet');
 var AbilityTableHeader = require('./abilityTableHeader');
 var AbilityRow = require('./abilityRow');
 var StyledText = require('./styledText');
 var getPointsLeft = require('../lib/getPointsLeft');
+var levels = require('../data/levels');
+var classes = require('../data/classes');
+var races = require('../data/races');
 var {
   AppRegistry,
   ScrollView,
   StatusBarIOS,
-  StyleSheet,
   View,
 } = React;
 
-var AbilityGenApp = React.createClass({
+var PointBuyer = React.createClass({
   getInitialState: function () {
     return {
       baseScores: {
@@ -41,15 +44,9 @@ var AbilityGenApp = React.createClass({
       });
 
     return (
-      <View style={styles.appContainer}>
-        <View style={styles.statusBarUnderlay} />
-        <View style={styles.headingContainer}>
-          <StyledText style={styles.heading}>
-            13th Age Abilities
-          </StyledText>
-        </View>
+      <View style={styles.container}>
         <ScrollView
-          contentContainerStyle={styles.contentContainer}>
+          contentContainerStyle={styles.scrollingContentContainer}>
           <AbilityTableHeader />
           {abilityRows}
         </ScrollView>
@@ -83,15 +80,11 @@ var AbilityGenApp = React.createClass({
 
 
 var styles = StyleSheet.create({
-  appContainer: {
+  container: {
     flex: 1,
     backgroundColor: '#fdf9f2',
   },
-  statusBarUnderlay: {
-    backgroundColor: '#440404',
-    height: 20,
-  },
-  contentContainer: {
+  scrollingContentContainer: {
     alignItems: 'stretch',
     flexDirection: 'column',
     paddingBottom: 80,
@@ -119,4 +112,4 @@ var styles = StyleSheet.create({
   },
 });
 
-module.exports = AbilityGenApp;
+module.exports = PointBuyer;

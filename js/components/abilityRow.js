@@ -4,7 +4,6 @@ var React = require('react-native');
 var IntegerInput = require('./integerInput');
 var StyledText = require('./styledText');
 var tableStyles = require('./styles/abilityTableStyles');
-var getDebugStyle = require('../lib/getDebugStyle');
 var {
   StyleSheet,
   View,
@@ -19,17 +18,17 @@ var AbilityRow = React.createClass({
 
     return (
       <View style={styles.row}>
-        <StyledText style={getDebugStyle([tableStyles.abilityCell, styles.abilityText])}>
+        <StyledText style={[tableStyles.abilityCell, styles.abilityText]}>
           {ability.toUpperCase()}
         </StyledText>
-        <View style={getDebugStyle([tableStyles.scoreCell, styles.scoreContainer])}>
+        <View style={[tableStyles.scoreCell, styles.scoreContainer]}>
           <IntegerInput
             value={score}
             min={8}
             max={18}
             onChange={(score) => updateBaseScore(ability, score)} />
         </View>
-        <StyledText style={getDebugStyle([tableStyles.modCell, styles.modText])}>
+        <StyledText style={[tableStyles.modCell, styles.modText]}>
           {modifier >= 0 ? '+' : ''}{modifier}
         </StyledText>
       </View>

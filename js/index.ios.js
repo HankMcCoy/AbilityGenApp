@@ -1,6 +1,6 @@
 'use strict';
 
 var { AppRegistry } = require('react-native');
-var AbilityGenApp = require('./components/abilityGenApp');
+var App = require('./components/app');
 
-AppRegistry.registerComponent('AbilityGenApp', () => AbilityGenApp);
+AppRegistry.registerComponent('AbilityGenApp', () => App);
