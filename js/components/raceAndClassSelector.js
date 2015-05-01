@@ -1,5 +1,5 @@
 var React = require('react-native');
-var StyleSheet = require('react-native-debug-stylesheet');
+var StyleSheet = require('../lib/stylesheet');
 var PointBuyer = require('./pointBuyer');
 var StyledText = require('./styledText');
 var TraitPicker = require('./traitPicker');
@@ -33,7 +33,10 @@ var RaceAndClassSelector = React.createClass({
             selectIdx={(classIdx) => this.setState({ classIdx })}
           />
         </View>
-        <TouchableHighlight onPress={this.proceed}>
+        <TouchableHighlight
+          underlayColor="#ddd"
+          style={styles.continueButton}
+          onPress={this.proceed}>
           <StyledText>Continue</StyledText>
         </TouchableHighlight>
       </View>
@@ -60,10 +63,15 @@ var RaceAndClassSelector = React.createClass({
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 40,
   },
   horizontalContainer: {
+    flex: 1,
     flexDirection: 'row',
+  },
+  continueButton: {
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
   }
 });
 

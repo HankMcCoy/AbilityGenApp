@@ -1,5 +1,5 @@
 var React = require('react-native');
-var StyleSheet = require('react-native-debug-stylesheet');
+var StyleSheet = require('../lib/stylesheet');
 var RaceAndClassSelector = require('./raceAndClassSelector');
 var TraitPicker = require('./traitPicker');
 var StyledText = require('./styledText');
@@ -18,12 +18,17 @@ var LevelSelector = React.createClass({
   render: function () {
     return (
       <View style={styles.container}>
-        <TraitPicker
-          options={levels}
-          selectedIdx={this.state.levelIdx}
-          selectIdx={(levelIdx) => this.setState({ levelIdx })}
-        />
-        <TouchableHighlight onPress={this.proceed}>
+        <View style={styles.pickerContainer}>
+          <TraitPicker
+            options={levels}
+            selectedIdx={this.state.levelIdx}
+            selectIdx={(levelIdx) => this.setState({ levelIdx })}
+          />
+        </View>
+        <TouchableHighlight
+          underlayColor="#ddd"
+          style={styles.continueButton}
+          onPress={this.proceed}>
           <StyledText>Continue</StyledText>
         </TouchableHighlight>
       </View>
@@ -44,12 +49,18 @@ var LevelSelector = React.createClass({
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 40,
+    flexDirection: 'column',
   },
-  levelPicker: {
+  pickerContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
-  label: {
-  },
+  continueButton: {
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+  }
 });
 
 module.exports = LevelSelector;

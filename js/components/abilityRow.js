@@ -4,30 +4,51 @@ var React = require('react-native');
 var IntegerInput = require('./integerInput');
 var StyledText = require('./styledText');
 var tableStyles = require('./styles/abilityTableStyles');
+var StyleSheet = require('../lib/stylesheet');
 var {
-  StyleSheet,
+  TouchableHighlight,
   View,
 } = React;
 
 var AbilityRow = React.createClass({
   render: function () {
-    var ability = this.props.ability;
-    var score = this.props.score;
-    var updateBaseScore = this.props.updateBaseScore;
-    var modifier = Math.floor(0.5*(score - 10));
+    var {
+      ability,
+      score,
+      raceClassBonus,
+      levelBonus,
+      updateBaseScore,
+      toggleRaceClassBonus,
+      updateLevelBonus,
+    } = this.props;
+    var [minScore, maxScore] = [8, 18].map(x => x + raceClassBonus);
+    var totalScore = score + raceClassBonus + levelBonus;
+    var modifier = Math.floor(0.5*(totalScore - 10));
 
     return (
       <View style={styles.row}>
-        <StyledText style={[tableStyles.abilityCell, styles.abilityText]}>
-          {ability.toUpperCase()}
-        </StyledText>
+        <TouchableHighlight
+          style={tableStyles.abilityCell}
+          underlayColor="#ddd"
+          onPress={() => toggleRaceClassBonus(ability)}>
+          <StyledText style={styles.abilityText}>
+            {ability.toUpperCase()}
+          </StyledText>
+        </TouchableHighlight>
         <View style={[tableStyles.scoreCell, styles.scoreContainer]}>
           <IntegerInput
-            value={score}
-            min={8}
-            max={18}
-            onChange={(score) => updateBaseScore(ability, score)} />
+            value={score + raceClassBonus}
+            min={minScore}
+            max={maxScore}
+            onChange={score => updateBaseScore(ability, score - raceClassBonus)} />
         </View>
+        <View style={[tableStyles.levelPlusCell, styles.scoreContainer]}>
+          <IntegerInput
+            value={levelBonus}
+            min={0}
+            max={2}
+            onChange={bonus => updateLevelBonus(ability, bonus)} />
+       </View>
         <StyledText style={[tableStyles.modCell, styles.modText]}>
           {modifier >= 0 ? '+' : ''}{modifier}
         </StyledText>

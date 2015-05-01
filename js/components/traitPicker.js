@@ -1,6 +1,6 @@
 var React = require('react-native');
+var StyleSheet = require('../lib/stylesheet');
 var {
-  StyleSheet,
   PickerIOS,
   View,
 } = React;
