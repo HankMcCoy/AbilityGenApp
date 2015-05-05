@@ -30,7 +30,8 @@ var AbilityRow = React.createClass({
         <TouchableHighlight
           style={tableStyles.abilityCell}
           underlayColor="#ddd"
-          onPress={() => toggleRaceClassBonus(ability)}>
+          onPress={() => toggleRaceClassBonus(ability)}
+          >
           <StyledText style={styles.abilityText}>
             {ability.toUpperCase()}
           </StyledText>
@@ -40,15 +41,15 @@ var AbilityRow = React.createClass({
             value={score + raceClassBonus}
             min={minScore}
             max={maxScore}
-            onChange={score => updateBaseScore(ability, score - raceClassBonus)} />
+            onChange={score => updateBaseScore(ability, score - raceClassBonus)}
+          />
         </View>
         <View style={[tableStyles.levelPlusCell, styles.scoreContainer]}>
           <IntegerInput
             value={levelBonus}
-            min={0}
-            max={2}
-            onChange={bonus => updateLevelBonus(ability, bonus)} />
-       </View>
+            onChange={bonus => updateLevelBonus(ability, bonus)}
+          />
+        </View>
         <StyledText style={[tableStyles.modCell, styles.modText]}>
           {modifier >= 0 ? '+' : ''}{modifier}
         </StyledText>

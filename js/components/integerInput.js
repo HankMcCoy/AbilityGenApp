@@ -49,8 +49,10 @@ var IntegerInput = React.createClass({
   changeValue: function (delta) {
     var nextVal = this.props.value + delta;
 
-    if (nextVal >= this.props.min && nextVal <= this.props.max)
+    if ((this.props.min === undefined || nextVal >= this.props.min) &&
+        (this.props.max === undefined || nextVal <= this.props.max)) {
       this.props.onChange(nextVal);
+    }
   }
 });
 

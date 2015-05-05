@@ -2,7 +2,7 @@
 
 var React = require('react-native');
 var LevelSelector = require('./levelSelector');
-var StyleSheet = require('react-native-debug-stylesheet');
+var StyleSheet = require('../lib/stylesheet');
 var {
   NavigatorIOS,
 } = React;

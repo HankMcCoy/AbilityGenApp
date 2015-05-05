@@ -2,10 +2,12 @@
 
 var React = require('react-native');
 var StyleSheet = require('../lib/stylesheet');
-var BigLabelledNumber = require('./bigLabelledNumber');
 var AbilityTableHeader = require('./abilityTableHeader');
 var AbilityRow = require('./abilityRow');
+var PointBuyFooter = require('./pointBuyFooter');
 var StyledText = require('./styledText');
+var getTotalLevelBonuses = require('../lib/getTotalLevelBonuses');
+var getMaxLevelBonus = require('../lib/getMaxLevelBonus');
 var getPointsLeft = require('../lib/getPointsLeft');
 var levels = require('../data/levels');
 var classes = require('../data/classes');
@@ -43,12 +45,6 @@ var PointBuyer = React.createClass({
     StatusBarIOS.setStyle(StatusBarIOS.Style.lightContent);
   },
   render() {
-    var {
-      pointsLeft,
-      raceClassBonusesLeft,
-      levelBonusesLeft,
-    } = this.getFooterValues();
-
     var abilityRows = Object.keys(this.state.baseScores)
       .map((key) => {
         var hasRaceClassBonus = this.state
@@ -73,44 +69,23 @@ var PointBuyer = React.createClass({
           contentContainerStyle={styles.scrollingContentContainer}>
           <AbilityTableHeader />
           {abilityRows}
-        </ScrollView>
-        <View style={styles.footer}>
-          <BigLabelledNumber
-            value={raceClassBonusesLeft}
-            label="race/class bonuses left"
-            />
-          <BigLabelledNumber
-            value={levelBonusesLeft}
-            label="lvl bonus left"
-            />
-          <BigLabelledNumber
-            value={pointsLeft}
-            label="points left"
-            />
-        </View>
+         </ScrollView>
+         <PointBuyFooter
+           levelIdx={this.props.levelIdx}
+           levelBonuses={this.state.levelBonuses}
+           baseScores={this.state.baseScores}
+           raceClassBonusAbilities={this.state.raceClassBonusAbilities}
+         />
        </View>
     );
   },
-  getFooterValues() {
-    var totalLevelBonuses = levels.slice(0, this.props.levelIdx).reduce((sum, level) => {
-      return sum + level.abilityPlusses.reduce((sum, plus) => sum + plus, 0)
-    }, 0);
-    var levelBonusesUsed = Object.keys(this.state.levelBonuses).reduce((sum, ability) => {
-      return sum + this.state.levelBonuses[ability];
-    }, 0);
 
-    return {
-      pointsLeft: getPointsLeft(this.state.baseScores),
-      raceClassBonusesLeft: 2 - this.state.raceClassBonusAbilities.length,
-      levelBonusesLeft: totalLevelBonuses - levelBonusesUsed,
-    };
-  },
   updateBaseScore(ability, score) {
     this.setState((prevState) => {
       var updatedBaseScores;
       var scoreUpdate = {};
-
       scoreUpdate[ability] = score;
+
       updatedBaseScores = Object.assign({}, prevState.baseScores, scoreUpdate);
 
       return {
@@ -123,7 +98,16 @@ var PointBuyer = React.createClass({
   updateLevelBonus: function (ability, levelBonus) {
     this.setState((prevState) => {
       var bonusUpdate = {};
-      bonusUpdate[ability] = levelBonus;
+      var levelBonusesUsed = Object.keys(prevState.levelBonuses).reduce(
+        (sum, ability) => sum + prevState.levelBonuses[ability],
+        0
+      );
+
+      if (levelBonusesUsed < getTotalLevelBonuses(this.props.levelIdx) &&
+          levelBonus <= getMaxLevelBonus(this.props.levelIdx) &&
+          levelBonus >= 0) {
+        bonusUpdate[ability] = levelBonus;
+      }
 
       return {
         levelBonuses: Object.assign({}, prevState.levelBonuses, bonusUpdate)

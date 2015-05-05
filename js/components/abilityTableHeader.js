@@ -12,7 +12,7 @@ var AbilityTableHeader = React.createClass({
   render: function () {
     return (
       <View style={styles.container}>
-        <View style={[tableStyles.abilityCell, styles.header]} />
+        <View style={tableStyles.abilityCell} />
         <StyledText style={[tableStyles.scoreCell, styles.header]}>
           SCORE
         </StyledText>
