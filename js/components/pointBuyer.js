@@ -170,7 +170,7 @@ var styles = StyleSheet.create({
   scrollingContentContainer: {
     flexDirection: 'column',
     margin: 0,
-    paddingTop: 0,
+    paddingTop: 10,
     paddingBottom: 80,
   },
 });
