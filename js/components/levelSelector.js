@@ -58,6 +58,8 @@ var styles = StyleSheet.create({
   },
   continueButton: {
     height: 40,
+    borderTopColor: '#ccc',
+    borderTopWidth: 2,
     alignItems: 'center',
     justifyContent: 'center',
   }

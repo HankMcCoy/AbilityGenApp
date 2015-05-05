@@ -107,7 +107,7 @@ var styles = StyleSheet.create({
     top: 0,
     left: 0,
     bottom: 0,
-    width: 5,
+    width: 3,
     backgroundColor: '#000',
   }
 });

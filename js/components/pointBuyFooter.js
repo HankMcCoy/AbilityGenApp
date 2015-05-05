@@ -50,6 +50,9 @@ var PointBuyFooter = React.createClass({
 var styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
+    borderTopWidth: 2,
+    borderTopColor: '#ccc',
+    padding: 5,
   }
 });
 
