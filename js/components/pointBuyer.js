@@ -52,9 +52,11 @@ var PointBuyer = React.createClass({
 
         return (
           <AbilityRow
+            key={key}
             ability={key}
             score={this.state.baseScores[key]}
             raceClassBonus={hasRaceClassBonus ? 2 : 0}
+            isValidRaceClass={this.isValidRaceClassAbilityToSelect(key)}
             levelBonus={this.state.levelBonuses[key]}
             updateBaseScore={this.updateBaseScore}
             toggleRaceClassBonus={this.toggleRaceClassBonus}
@@ -84,7 +86,9 @@ var PointBuyer = React.createClass({
     this.setState((prevState) => {
       var updatedBaseScores;
       var scoreUpdate = {};
-      scoreUpdate[ability] = score;
+
+      if (score >= 8 && score <= 18)
+        scoreUpdate[ability] = score;
 
       updatedBaseScores = Object.assign({}, prevState.baseScores, scoreUpdate);
 

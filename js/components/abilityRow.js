@@ -20,28 +20,37 @@ var AbilityRow = React.createClass({
       updateBaseScore,
       toggleRaceClassBonus,
       updateLevelBonus,
+      isValidRaceClass,
     } = this.props;
-    var [minScore, maxScore] = [8, 18].map(x => x + raceClassBonus);
     var totalScore = score + raceClassBonus + levelBonus;
     var modifier = Math.floor(0.5*(totalScore - 10));
+    var isAbilitySelected = raceClassBonus > 0;
 
     return (
       <View style={styles.row}>
         <TouchableHighlight
-          style={tableStyles.abilityCell}
+          style={[tableStyles.abilityCell, styles.abilityContainer]}
           underlayColor="#ddd"
           onPress={() => toggleRaceClassBonus(ability)}
           >
-          <StyledText style={styles.abilityText}>
-            {ability.toUpperCase()}
-          </StyledText>
+          <View>
+            {isAbilitySelected ? <SelectedAbilityDecoration /> : undefined}
+            <StyledText
+              style={[
+                styles.abilityText,
+                isAbilitySelected || isValidRaceClass
+                  ? { color: '#000' }
+                  : null
+              ]}
+              >
+              {ability.toUpperCase()}
+            </StyledText>
+          </View>
         </TouchableHighlight>
         <View style={[tableStyles.scoreCell, styles.scoreContainer]}>
           <IntegerInput
-            value={score + raceClassBonus}
-            min={minScore}
-            max={maxScore}
-            onChange={score => updateBaseScore(ability, score - raceClassBonus)}
+            value={score + raceClassBonus + levelBonus}
+            onChange={score => updateBaseScore(ability, score - raceClassBonus - levelBonus)}
           />
         </View>
         <View style={[tableStyles.levelPlusCell, styles.scoreContainer]}>
@@ -58,6 +67,14 @@ var AbilityRow = React.createClass({
   }
 });
 
+var SelectedAbilityDecoration = React.createClass({
+  render() {
+    return (
+      <View style={styles.selectedAbilityDecoration} />
+    );
+  }
+});
+
 var styles = StyleSheet.create({
   row: {
     flex: 1,
@@ -66,8 +83,12 @@ var styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 5,
   },
+  abilityContainer: {
+    position: 'relative',
+  },
   abilityText: {
     textAlign: 'center',
+    color: '#777',
   },
   scoreContainer: {
     height: 60,
@@ -75,6 +96,20 @@ var styles = StyleSheet.create({
   modText: {
     textAlign: 'center',
   },
+  activeRaceClass: {
+    color: '#000',
+  },
+  validRaceClass: {
+    color: '#000',
+  },
+  selectedAbilityDecoration: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    width: 5,
+    backgroundColor: '#000',
+  }
 });
 
 module.exports = AbilityRow;
